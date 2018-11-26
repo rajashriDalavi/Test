@@ -1,0 +1,92 @@
+vault
+export VAULT_ADDR='http://127.0.0.1:8200'
+vault status
+
+vault write mysql/config/connection \
+    value="root:root@tcp(192.168.33.10:3306)/"
+
+
+vault mount mysql
+vault mounts
+
+
+vault write mysql/roles/readonly \
+    sql="CREATE USER 'testNow'@'%' IDENTIFIED BY 'testNow';GRANT SELECT ON *.* TO 'testNow'@'%';"
+Success! Data written to: mysql/roles/readonly
+
+
+
+
+-----------------------------Vault Installation Process-------------------------------------------------------------------------------
+For first time
+
+1. Vault setup== 
+1. Download Vault-- https://www.vaultproject.io/downloads.html
+2. Set Path-- export PATH=$PATH:/path/to/dir
+3. Verifying the Installation by command-- vault
+
+4.Install consul 
+Download consul--https://www.consul.io/downloads.html
+5.Verifying the Installation: consul
+6.Starting the Agent :
+---- consul agent -server -bootstrap-expect 1 -data-dir /ValutSetup/consul  
+---- consul agent -dev 
+For details :https://www.vaultproject.io/intro/getting-started/deploy.html
+
+   OR
+----  consul agent -server -bootstrap-expect 1 -data-dir .\consul -bind 127.0.0.1
+
+7.In new terminal :Start vault server :
+vault server -config=/home/opex/VaultSetup/example.hcl
+
+Then again in new terminal :
+8.export VAULT_ADDR='http://127.0.0.1:8200'
+9.vault init
+copies all keys in text file for feture ref.
+10.vault status
+11. vault unseal
+12.vault auth _by root token
+14. Also we used same root token in app.properties file as vaultKey
+13.vault write secret/raj value="Opex"
+
+
+From next onword :
+ Start consul :
+1.consul agent -server -bootstrap-expect 1 -data-dir /ValutSetup/consul
+2.Starting the Agent :consul agent -dev
+
+In new terminal start vault server : 
+vault server -config=/home/opex/VaultSetup/ex.hcl
+
+Then again in new terminal :
+8.export VAULT_ADDR='http://127.0.0.1:8200'
+9.vault init
+copies all keys in text file for feture ref.
+10.vault status
+11. vault unseal
+12.vault auth _by root token
+14. Also we used same root token in app.properties file as vaultKey
+13.vault write secret/raj value="Opex"
+
+
+
+
+
+For more info : http://blog.illogicalextend.com/
+https://www.hashicorp.com/blog/vault-0-2.html
+
+To deploy vault on production--https://www.vaultproject.io/intro/getting-started/deploy.html
+Access control policies---https://www.vaultproject.io/intro/getting-started/acl.html
+
+
+
+
+ 
+opex@RajashriDalavi-opex:~$ 
+
+
+
+
+
+
+

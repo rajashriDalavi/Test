@@ -1,0 +1,117 @@
+opex@RajashriDalavi-opex:~/work/TestNow$ cd ..
+opex@RajashriDalavi-opex:~/work$ cd ..
+opex@RajashriDalavi-opex:~$ vault init
+Error initializing Vault: Put https://127.0.0.1:8200/v1/sys/init: tls: oversized record received with length 20527
+
+This error usually means that the server is running with TLS disabled
+but the client is configured to use TLS. Please either enable TLS
+on the server or run the client with -address set to an address
+that uses the http protocol:
+
+    vault <command> -address http://<address>
+
+You can also set the VAULT_ADDR environment variable:
+
+
+    VAULT_ADDR=http://<address> vault <command>
+
+where <address> is replaced by the actual address to the server.
+opex@RajashriDalavi-opex:~$ export VAULT_ADDR='http://127.0.0.1:8200'
+opex@RajashriDalavi-opex:~$ vault init
+Key 1: 62f8646beb9935abd85c5cabd2152be6cb92b1079b8f8697a6e5ae60974e731101
+Key 2: 86cfc01f4fb7b36999f13d21f7c46b325b96574beb1b89b77604108d2f63fa1b02
+Key 3: 7d1a62a25307a1845407b8e72da80f32987f4ee0e48936fcfc28ab2b28bbf23003
+Key 4: 42a5b5c9aab7e28d229af3b4b6979a28bb2a54e7f5f53bd3d72aa420070410bf04
+Key 5: b9701774b607f060ef6c76726cfbfe2878c34d4cfa6784985d061f8600dc189405
+Initial Root Token: 8119299a-4cc6-d62d-283c-0cfbdbafa0b4
+
+Vault initialized with 5 keys and a key threshold of 3. Please
+securely distribute the above keys. When the Vault is re-sealed,
+restarted, or stopped, you must provide at least 3 of these keys
+to unseal it again.
+
+Vault does not store the master key. Without at least 3 keys,
+your Vault will remain permanently sealed.
+opex@RajashriDalavi-opex:~$ 
+
+
+
+
+All credentials needs to be stored securely----HashiCorp Vault
+
+Info----
+
+1. Vault setup
+2. mount mysql
+3. Config/mysql/creditional/
+4.create a vault
+5. -seal unseal with root and non root user
+ --thread ==
+number of user
+6.vaul status
+7.api
+
+
+consul===it is used for service checking
+
+   export PATH=$PATH:/path/home/opex/ValutSetup
+
+export CONFIG_PATH=/home/opex/ValutSetup/vault/config/
+
+
+
+config/mysql/credentials \
+value="user=root password=root database=testnow"
+
+
+mysql/config/credentials \
+value="user=root password=root database=testnow"
+
+
+219.91.158.222
+
+vault write mysql/config/connection \
+    value="root:root@tcp(localhost:3306)/"
+
+
+
+--------------------------------------------------------------------------------------------------------
+opex@RajashriDalavi-opex:~$ su rajashri
+No passwd entry for user 'rajashri'
+opex@RajashriDalavi-opex:~$ passwd rajashri
+passwd: user 'rajashri' does not exist
+opex@RajashriDalavi-opex:~$ passwd 
+Changing password for opex.
+(current) UNIX password: 
+passwd: Authentication token manipulation error
+passwd: password unchanged
+opex@RajashriDalavi-opex:~$ adduser testNow
+adduser: Only root may add a user or group to the system.
+opex@RajashriDalavi-opex:~$ sudo adduser testNow
+[sudo] password for opex: 
+adduser: Please enter a username matching the regular expression configured
+via the NAME_REGEX[_SYSTEM] configuration variable.  Use the `--force-badname'
+option to relax this check or reconfigure NAME_REGEX.
+opex@RajashriDalavi-opex:~$ 
+
+
+
+-----------------------------------------------------
+
+
+
+export PATH=$PATh:/home/opex/ValutSetup/vault
+
+
+ export VAULT_ADDR='http://127.0.0.1:8200'
+435a71a2b6c18e25010689603f8dce93390c31ee868648e8202566ce69be4776
+
+
+Unseal Key: 
+Root Token: 7c11d846-5ec2-96b1-6ce0-56557d853338
+
+
+
+Unseal Key: 1b6d5c61fd7ab223f061426d097f751531fc85a4ff825df92bf64d02bd1dce0f
+
+

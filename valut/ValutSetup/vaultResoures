@@ -1,0 +1,61 @@
+package com.opex.testnow.vault;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.bettercloud.vault.Vault;
+import com.bettercloud.vault.VaultConfig;
+import com.bettercloud.vault.VaultException;
+import com.bettercloud.vault.response.LogicalResponse;
+import com.opex.utils.AppProperties;
+
+public class VaultResource {
+
+	public String readData(String key) throws VaultException{
+		String vaultServerURL = AppProperties.getStringProperty("vaultURL");
+		System.out.println("vaultServerURL==="+vaultServerURL);
+		String vaultKey = AppProperties.getStringProperty("vaultKey");
+		System.out.println("vaultKey==="+vaultKey);
+
+
+		final VaultConfig config = new VaultConfig(vaultServerURL, vaultKey);
+		final Vault vault = new Vault(config);
+		/*LogicalResponse vaultResponse = vault.read("aws/creds/deploy");*/
+		/*final LogicalResponse response = vault.logical().read("");
+		response.getData().get(key);
+*/
+
+		final String value = vault.logical().read("secret/"+key).getData().get("value");
+		System.out.println("value of key is===="+value);
+
+		return value;		
+	}
+	
+	public void writeData(String key,String value) throws VaultException{
+		String vaultServerURL = AppProperties.getStringProperty("vaultURL");
+		System.out.println("vaultServerURL==="+vaultServerURL);
+		String vaultKey = AppProperties.getStringProperty("vaultKey");
+		System.out.println("vaultKey==="+vaultKey);
+
+		final VaultConfig config = new VaultConfig(vaultServerURL, vaultKey);
+		final Vault vault = new Vault(config);
+
+		final Map<String, String> secrets = new HashMap<String, String>();
+		secrets.put("value", value);
+		//secrets.put("other_value", "You can store multiple name/value pairs under a single key");
+
+		// Write operation
+		final LogicalResponse writeResponse = vault.logical().write("secret/"+key, secrets);
+		System.out.println("Writting is===="+writeResponse);
+
+
+	}
+	public static void main(String args[]) throws VaultException{
+		VaultResource vr=new VaultResource();
+		vr.writeData("FirstValue","Opex");
+		vr.readData("FirstValue");
+		
+	}
+
+}
+
